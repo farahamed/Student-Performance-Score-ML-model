@@ -10,7 +10,9 @@ import warnings
 import time
 
 warnings.filterwarnings('ignore')
+#read data
 students_data = pd.read_csv("C:/Users/DELL/Desktop/ML learning internship/Student Performance Score Task 1/csv file/archive/StudentPerformanceFactors.csv")
+#explore data
 print(students_data.head())
 print(students_data.info())
 print(students_data.duplicated().sum())
@@ -31,6 +33,7 @@ print(students_data1['Motivation_Level'].unique())
 
 y=students_data1.Exam_Score
 print(y)
+#features
 features_input = [
     'Hours_Studied', 'Attendance', 'Sleep_Hours', 'Motivation_Level',
     'Internet_Access', 'Teacher_Quality', 'Tutoring_Sessions',
@@ -39,7 +42,7 @@ features_input = [
 ]
 
 
-
+#visualization
 plt.figure(figsize=(18, 5))
 
 plt.subplot(1, 4, 1)
@@ -59,18 +62,20 @@ sns.boxplot(x='Motivation_Level', y='Exam_Score', data=students_data1)
 plt.title('Motivation Level vs Exam Score')
 
 plt.tight_layout()
-plt.show(block=False)  # Show first figure
+plt.show(block=False)  
 
-# Second figure: heatmap
+#heatmap
 plt.figure(figsize=(6,5))
 sns.heatmap(students_data1.select_dtypes(include=['number']).corr(), annot=True, cmap='coolwarm')
 plt.title('Correlation Heatmap')
-plt.show(block=False)  # Show second figure
+plt.show(block=False)  
 time.sleep(10)
 
 input("Press Enter to close all figures...")
 
+
 X=students_data1[features_input]
+#target
 Y=students_data1['Exam_Score']
 print(X.describe())
 print(X.head())
@@ -84,11 +89,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 print(X_test.shape,X_train.shape)
 
-
+#building model
 model=LinearRegression(fit_intercept=True,n_jobs=1)
 model.fit(X_train,y_train)
 
 y_pred = model.predict(X_test)
+
 print("predictions: ",y_pred)
 
 intercept=model.intercept_
@@ -96,7 +102,7 @@ print("intercepts: ",intercept)
 
 coeff=model.coef_
 print("coefficents: ",coeff)
-
+#evaluation
 mean_square=mean_squared_error(y_test, y_pred) 
 print("mean square: ",mean_square)
 r2=r2_score(y_test, y_pred)   
@@ -108,9 +114,9 @@ print("test score: ",test_score)
 
 feature_names = X.columns  
 
-# Zip names with coefficients
 for name, coef in zip(feature_names, model.coef_):
     print(f"{name}: {coef}")
+
 
 
 
