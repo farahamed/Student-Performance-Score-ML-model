@@ -5,7 +5,6 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split  
 from sklearn.linear_model import LinearRegression    
 from sklearn.metrics import mean_squared_error, r2_score
-# from statsmodels.stats.outliers_influence import variance_inflation_factor
 import warnings
 import time
 
@@ -116,6 +115,7 @@ feature_names = X.columns
 
 for name, coef in zip(feature_names, model.coef_):
     print(f"{name}: {coef}")
+
 
 
 
